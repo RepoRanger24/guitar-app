@@ -29,7 +29,24 @@ scale_notes = [notes[(root_index + i) % 12] for i in scales[scale_name]]
 
 st.write("### Notes you can play:")
 st.write(", ".join(scale_notes))
+st.write("### Fretboard (first 12 frets)")
 
+strings = ["E", "A", "D", "G", "B", "E"]
+frets = 12
+
+for string in strings:
+    row = []
+    for fret in range(frets + 1):
+        note_index = (notes.index(string) + fret) % 12
+        note = notes[note_index]
+        if note in scale_notes:
+            if note == key:
+                row.append(f"[{note}]")  # root note
+            else:
+                row.append(note)
+        else:
+            row.append("-")
+    st.write(f"{string} | " + " ".join(row))
 # Speed control (visual only for now)
 speed = st.slider("Playback Speed (%)", 50, 150, 100)
 
