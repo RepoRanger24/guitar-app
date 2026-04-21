@@ -30,6 +30,35 @@ scale_notes = [notes[(root_index + i) % 12] for i in scales[scale_name]]
 st.write("### Notes you can play:")
 st.write(", ".join(scale_notes))
 st.write("### Fretboard (first 12 frets)")
+st.caption("Root notes are shown in brackets [ ]")
+
+strings = ["E", "A", "D", "G", "B", "E"]
+frets = 12
+
+for string in strings:
+    row = []
+    for fret in range(frets + 1):
+        note_index = (notes.index(string) + fret) % 12
+        note = notes[note_index]
+
+        if note in scale_notes:
+            if note == key:
+                row.append(f"[{note}]")
+            else:
+                row.append(note)
+        else:
+            row.append("-")
+
+    st.text(f"{string} | " + " ".join(row))
+
+st.write("### Practice Tip")
+
+if scale_name == "Minor Pentatonic":
+    st.info(f"Try landing on {key} at the end of your phrases. That will make your solo sound more resolved.")
+elif scale_name == "Blues":
+    st.info(f"Use the {key} blues scale, but don’t sit on every note the same. The blue note works best as a passing tone.")
+elif scale_name == "Major":
+    st.info(f"Try starting and ending phrases on {key}. Then experiment with the 3rd and 5th for a more melodic sound.")
 
 strings = ["E", "A", "D", "G", "B", "E"]
 frets = 12
