@@ -131,10 +131,19 @@ fretboard_html = """
 """
 
 string_positions = [40, 84, 128, 172, 216, 260]
-fret_positions = [105 + ((f - 1) * 65) for f in range(1, frets + 1)]
+
+# First real fret line starts after the nut
+first_fret_x = 135
+fret_spacing = 65
+fret_positions = [first_fret_x + (f * fret_spacing) for f in range(frets)]
+
 for i, y in enumerate(string_positions):
     fretboard_html += f'<div class="string-label" style="top:{y}px;">{strings[i]}</div>'
     fretboard_html += f'<div class="string-line" style="top:{y}px;"></div>'
+
+for f, x in enumerate(fret_positions, start=1):
+    fretboard_html += f'<div class="fret-line" style="left:{x}px;"></div>'
+    fretboard_html += f'<div class="fret-number" style="left:{x-32}px;">{f}</div>'
 
 
 for f, x in enumerate(fret_positions):
@@ -168,10 +177,10 @@ for s_idx, string in enumerate(strings):
     note_index = (notes.index(string) + fret) % 12
     note = notes[note_index]
 
-    if fret == 0:
-        x = 58
-    else:
-        x = 105 + ((fret - 1) * 65) + 32
+   if fret == 0:
+    x = 92
+else:
+    x = first_fret_x + ((fret - 1) * fret_spacing) - 32
             css_class = "root-note" if note == key else "scale-note"
             fretboard_html += f'''
             <div class="note-dot {css_class}" style="left:{x}px; top:{y}px;">
