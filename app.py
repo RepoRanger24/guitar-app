@@ -32,34 +32,152 @@ st.write(", ".join(scale_notes))
 box_mode = st.checkbox("Show Pentatonic Box 1 Only")
 box_start = st.slider("Box start fret", 0, 8, 0)
 st.write("### Fretboard (first 12 frets)")
-st.caption("Root notes are shown in brackets [ ]")
+st.caption("Root note is red. Other scale notes are blue.")
 
 strings = ["E", "A", "D", "G", "B", "E"]
 frets = 12
-# Show fret numbers
-fret_labels = ["   "] + [str(f) for f in range(frets + 1)]
-st.text("    " + " ".join(fret_labels))
-for string in strings:
-    row = []
+
+fretboard_html = """
+<style>
+.fretboard-wrap {
+    overflow-x: auto;
+    padding: 10px 0 20px 0;
+}
+.fretboard {
+    position: relative;
+    width: 910px;
+    height: 300px;
+    background: linear-gradient(180deg, #d2a679 0%, #c7925f 100%);
+    border: 3px solid #6b4423;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.string-line {
+    position: absolute;
+    left: 40px;
+    right: 20px;
+    height: 2px;
+    background: #444;
+}
+.fret-line {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: #555;
+}
+.nut {
+    position: absolute;
+    left: 38px;
+    top: 20px;
+    bottom: 20px;
+    width: 6px;
+    background: #222;
+}
+.fret-number {
+    position: absolute;
+    top: -2px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #222;
+}
+.string-label {
+    position: absolute;
+    left: 8px;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: #222;
+}
+.note-dot {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+.root-note {
+    background: #d62828;
+}
+.scale-note {
+    background: #1d4ed8;
+}
+.inlay {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    transform: translate(-50%, -50%);
+}
+.double-inlay {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    transform: translate(-50%, -50%);
+}
+</style>
+<div class="fretboard-wrap">
+  <div class="fretboard">
+    <div class="nut"></div>
+"""
+
+string_positions = [40, 84, 128, 172, 216, 260]
+fret_positions = [40 + (f * 65) for f in range(frets + 1)]
+
+for i, y in enumerate(string_positions):
+    fretboard_html += f'<div class="string-label" style="top:{y}px;">{strings[i]}</div>'
+    fretboard_html += f'<div class="string-line" style="top:{y}px;"></div>'
+
+for f, x in enumerate(fret_positions):
+    fretboard_html += f'<div class="fret-line" style="left:{x}px;"></div>'
+    fretboard_html += f'<div class="fret-number" style="left:{x+32}px;">{f}</div>'
+
+# Fret markers
+for marker_fret in [3, 5, 7, 9]:
+    x = 40 + marker_fret * 65 + 32
+    fretboard_html += f'<div class="inlay" style="left:{x}px; top:150px;"></div>'
+
+# 12th fret double marker
+x12 = 40 + 12 * 65 + 32
+fretboard_html += f'<div class="double-inlay" style="left:{x12}px; top:110px;"></div>'
+fretboard_html += f'<div class="double-inlay" style="left:{x12}px; top:190px;"></div>'
+
+for s_idx, string in enumerate(strings):
+    y = string_positions[s_idx]
     for fret in range(frets + 1):
         note_index = (notes.index(string) + fret) % 12
         note = notes[note_index]
 
-        # Box 1 = first 5 frets
         in_box = box_start <= fret <= box_start + 4
 
         if note in scale_notes:
             if box_mode and not in_box:
-                row.append("-")
-            else:
-                if note == key:
-                    row.append(f"[{note}]")
-                else:
-                    row.append(note)
-        else:
-            row.append("-")
+                continue
 
-    st.text(f"{string} | " + " ".join(row))
+            x = 40 + fret * 65 + 32
+            css_class = "root-note" if note == key else "scale-note"
+            fretboard_html += f'''
+            <div class="note-dot {css_class}" style="left:{x}px; top:{y}px;">
+                {note}
+            </div>
+            '''
+
+fretboard_html += """
+  </div>
+</div>
+"""
+
+components.html(fretboard_html, height=360)
+
 
 st.write("### Practice Tip")
 
