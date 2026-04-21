@@ -1,5 +1,5 @@
 import streamlit as st
-
+import streamlit.components.v1 as components
 st.title("🎸 Jam Partner")
 st.write("Play along with backing tracks and see what you can play!")
 
