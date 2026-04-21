@@ -135,7 +135,7 @@ string_positions = [40, 84, 128, 172, 216, 260]
 # First real fret line starts after the nut
 first_fret_x = 135
 fret_spacing = 65
-fret_positions = [first_fret_x + (f * fret_spacing) for f in range(frets)]
+fret_positions = [first_fret_x + ((f + 1) * fret_spacing) for f in range(frets - 1)]
 
 for i, y in enumerate(string_positions):
     fretboard_html += f'<div class="string-label" style="top:{y}px;">{strings[i]}</div>'
