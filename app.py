@@ -164,10 +164,14 @@ for s_idx, string in enumerate(strings):
             if box_mode and not in_box:
                 continue
 
-           if fret == 0:
-    x = 58
-else:
-    x = 105 + ((fret - 1) * 65) + 32
+        for fret in range(frets + 1):
+    note_index = (notes.index(string) + fret) % 12
+    note = notes[note_index]
+
+    if fret == 0:
+        x = 58
+    else:
+        x = 105 + ((fret - 1) * 65) + 32
             css_class = "root-note" if note == key else "scale-note"
             fretboard_html += f'''
             <div class="note-dot {css_class}" style="left:{x}px; top:{y}px;">
