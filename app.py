@@ -131,8 +131,7 @@ fretboard_html = """
 """
 
 string_positions = [40, 84, 128, 172, 216, 260]
-fret_positions = [40 + (f * 65) for f in range(frets + 1)]
-
+fret_positions = [105 + ((f - 1) * 65) for f in range(1, frets + 1)]
 for i, y in enumerate(string_positions):
     fretboard_html += f'<div class="string-label" style="top:{y}px;">{strings[i]}</div>'
     fretboard_html += f'<div class="string-line" style="top:{y}px;"></div>'
@@ -164,7 +163,10 @@ for s_idx, string in enumerate(strings):
             if box_mode and not in_box:
                 continue
 
-            x = 40 + fret * 65 + 32
+           if fret == 0:
+    x = 58
+else:
+    x = 105 + ((fret - 1) * 65) + 32
             css_class = "root-note" if note == key else "scale-note"
             fretboard_html += f'''
             <div class="note-dot {css_class}" style="left:{x}px; top:{y}px;">
