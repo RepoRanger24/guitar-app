@@ -188,7 +188,7 @@ elif scale_name == "Blues":
 elif scale_name == "Major":
     st.info(f"Try starting and ending phrases on {key}. Then experiment with the 3rd and 5th for a more melodic sound.")
 
-strings = ["E", "A", "D", "G", "B", "E"]
+strings = ["E", "B", "G", "D", "A", "E"]
 frets = 12
 
 
