@@ -163,7 +163,7 @@ fretboard_html += f'<div class="double-inlay" style="left:{x12}px; top:190px;"><
 
 for s_idx, string in enumerate(strings):
     y = string_positions[s_idx]
-    for fret in range(frets + 1):
+    for fret in range(1, frets + 1):
         note_index = (notes.index(string) + fret) % 12
         note = notes[note_index]
 
@@ -177,10 +177,7 @@ for s_idx, string in enumerate(strings):
         note_index = (notes.index(string) + fret) % 12
         note = notes[note_index]
 
-        if fret == 0:
-            x = 92
-        else:
-            x = first_fret_x + ((fret - 1) * fret_spacing) - 32
+        x = first_fret_x + ((fret - 1) * fret_spacing) - 32
             css_class = "root-note" if note == key else "scale-note"
             fretboard_html += f'''
             <div class="note-dot {css_class}" style="left:{x}px; top:{y}px;">
