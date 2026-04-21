@@ -1,6 +1,14 @@
 import streamlit as st
 import streamlit.components.v1 as components
+st.write("### Backing Track (YouTube)")
 
+youtube_url = st.text_input(
+    "Paste YouTube link here",
+    "https://www.youtube.com/watch?v=VIDEO_ID"
+)
+
+if youtube_url:
+    st.video(youtube_url)
 st.set_page_config(page_title="Jam Partner", layout="centered")
 
 st.title("🎸 Jam Partner")
