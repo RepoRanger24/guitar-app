@@ -137,7 +137,7 @@ for i, y in enumerate(string_positions):
     fretboard_html += f'<div class="string-label" style="top:{y}px;">{strings[i]}</div>'
     fretboard_html += f'<div class="string-line" style="top:{y}px;"></div>'
 
-for f, x in enumerate(fret_positions):
+
 for f, x in enumerate(fret_positions):
     fretboard_html += f'<div class="fret-line" style="left:{x}px;"></div>'
     if f > 0:
