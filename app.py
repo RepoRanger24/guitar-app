@@ -142,9 +142,9 @@ for i, y in enumerate(string_positions):
     fretboard_html += f'<div class="string-line" style="top:{y}px;"></div>'
 
 for f, x in enumerate(fret_positions, start=1):
-    fretboard_html += f'<div class="fret-line" style="left:{x}px;"></div>'
+    if f > 1:  # skip the first line next to the nut
+        fretboard_html += f'<div class="fret-line" style="left:{x}px;"></div>'
     fretboard_html += f'<div class="fret-number" style="left:{x-32}px;">{f}</div>'
-
 
 for f, x in enumerate(fret_positions):
     if f > 0:  # skip the line right after the nut
