@@ -34,7 +34,7 @@ box_start = st.slider("Box start fret", 0, 8, 0)
 st.write("### Fretboard (first 12 frets)")
 st.caption("Root note is red. Other scale notes are blue.")
 
-strings = ["E", "A", "D", "G", "B", "E"]
+strings = ["E", "B", "G", "D", "A", "E"]
 frets = 12
 
 fretboard_html = """
@@ -188,8 +188,7 @@ elif scale_name == "Blues":
 elif scale_name == "Major":
     st.info(f"Try starting and ending phrases on {key}. Then experiment with the 3rd and 5th for a more melodic sound.")
 
-strings = ["E", "B", "G", "D", "A", "E"]
-frets = 12
+
 
 
 # Speed control (visual only for now)
