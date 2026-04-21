@@ -5,7 +5,7 @@ st.write("Play along with backing tracks and see what you can play!")
 
 # Upload backing track
 uploaded_file = st.file_uploader("Upload a backing track", type=["mp3", "wav"])
-
+    
 if uploaded_file:
     st.audio(uploaded_file)
 
@@ -155,8 +155,8 @@ fretboard_html += f'<div class="double-inlay" style="left:{x12}px; top:190px;"><
 for s_idx, string in enumerate(strings):
     y = string_positions[s_idx]
     for fret in range(frets + 1):
-        note_index = (notes.index(string) + fret) % 12
-        note = notes[note_index]
+            note_index = (notes.index(string) + fret) % 12
+            note = notes[note_index]
 
         in_box = box_start <= fret <= box_start + 4
 
