@@ -30,7 +30,7 @@ scale_notes = [notes[(root_index + i) % 12] for i in scales[scale_name]]
 st.write("### Notes you can play:")
 st.write(", ".join(scale_notes))
 box_mode = st.checkbox("Show Pentatonic Box 1 Only")
-box_mode = st.checkbox("Show Pentatonic Box 1 Only")
+
 st.write("### Fretboard (first 12 frets)")
 st.caption("Root notes are shown in brackets [ ]")
 
