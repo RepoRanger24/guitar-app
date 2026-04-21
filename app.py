@@ -36,7 +36,9 @@ st.caption("Root notes are shown in brackets [ ]")
 
 strings = ["E", "A", "D", "G", "B", "E"]
 frets = 12
-
+# Show fret numbers
+fret_labels = ["   "] + [str(f) for f in range(frets + 1)]
+st.text("    " + " ".join(fret_labels))
 for string in strings:
     row = []
     for fret in range(frets + 1):
