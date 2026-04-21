@@ -138,9 +138,10 @@ for i, y in enumerate(string_positions):
     fretboard_html += f'<div class="string-line" style="top:{y}px;"></div>'
 
 for f, x in enumerate(fret_positions):
+for f, x in enumerate(fret_positions):
     fretboard_html += f'<div class="fret-line" style="left:{x}px;"></div>'
-    fretboard_html += f'<div class="fret-number" style="left:{x+32}px;">{f}</div>'
-
+    if f > 0:
+        fretboard_html += f'<div class="fret-number" style="left:{x+32}px;">{f}</div>'   
 # Fret markers
 for marker_fret in [3, 5, 7, 9]:
     x = 40 + marker_fret * 65 + 32
