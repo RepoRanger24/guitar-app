@@ -29,6 +29,8 @@ scale_notes = [notes[(root_index + i) % 12] for i in scales[scale_name]]
 
 st.write("### Notes you can play:")
 st.write(", ".join(scale_notes))
+box_mode = st.checkbox("Show Pentatonic Box 1 Only")
+box_mode = st.checkbox("Show Pentatonic Box 1 Only")
 st.write("### Fretboard (first 12 frets)")
 st.caption("Root notes are shown in brackets [ ]")
 
@@ -41,11 +43,17 @@ for string in strings:
         note_index = (notes.index(string) + fret) % 12
         note = notes[note_index]
 
+        # Box 1 = first 5 frets
+        in_box = fret <= 4
+
         if note in scale_notes:
-            if note == key:
-                row.append(f"[{note}]")
+            if box_mode and not in_box:
+                row.append("-")
             else:
-                row.append(note)
+                if note == key:
+                    row.append(f"[{note}]")
+                else:
+                    row.append(note)
         else:
             row.append("-")
 
